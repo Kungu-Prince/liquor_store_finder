@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block title %}Liquor Stores Nearby{% endblock %}
+
+{% block content %}
+<h1>Liquor Stores Nearby</h1>
+<div id="location-status"></div>
+<div class="store-list">
+    {% for store in stores %}
+        <div class="store-card">
+            <img src="{{ store.image_url }}" alt="{{ store.name }}">
+            <h2>{{ store.name }}</h2>
+            <p>{{ store.description }}</p>
+            <p>Open: {{ store.opening_time.strftime('%H:%M') }} - {{ store.closing_time.strftime('%H:%M') }}</p>
+            <p>Distance: {{ store.distance }} km</p>
+            <a href="{{ url_for('store_detail', store_id=store.id) }}">View on Map</a>
+        </div>
+    {% endfor %}
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition, showError);
+        } else {
+            document.getElementById('location-status').innerHTML = "Geolocation is not supported by this browser.";
+        }
+
+        function showPosition(position) {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+            document.getElementById('location-status').innerHTML = "Fetching nearby stores...";
+            fetchStores(lat, lon);
+        }
+
+        function showError(error) {
+            switch(error.code) {
+                case error.PERMISSION_DENIED:
+                    document.getElementById('location-status').innerHTML = "User denied the request for Geolocation.";
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    document.getElementById('location-status').innerHTML = "Location information is unavailable.";
+                    break;
+                case error.TIMEOUT:
+                    document.getElementById('location-status').innerHTML = "The request to get user location timed out.";
+                    break;
+                case error.UNKNOWN_ERROR:
+                    document.getElementById('location-status').innerHTML = "An unknown error occurred.";
+                    break;
+            }
+        }
+
+        function fetchStores(lat, lon) {
+            fetch(`/stores?lat=${lat}&lon=${lon}`)
+                .then(response => response.json())
+                .then(data => {
+                    const storesContainer = document.querySelector('.store-list');
+                    storesContainer.innerHTML = '';
+                    data.stores.forEach(store => {
+                        storesContainer.innerHTML += `
+                            <div class="store-card">
+                                <img src="${store.image_url}" alt="${store.name}">
+                                <h2>${store.name}</h2>
+                                <p>${store.description}</p>
+                                <p>Open: ${store.opening_time}</p>
+                                <p>Distance: ${store.distance} km</p>
+                                <a href="/store/${store.id}">View on Map</a>
+                            </div>
+                        `;
+                    });
+                })
+                .catch(error => {
+                    document.getElementById('location-status').innerHTML = "Error fetching stores.";
+                    console.error('Error fetching stores:', error);
+                });
+        }
+    });
+</script>
+{% endblock %}

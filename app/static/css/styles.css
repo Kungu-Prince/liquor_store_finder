@@ -1,0 +1,20 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.store-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.store-card {
+    border: 1px solid #ddd;
+    margin: 10px;
+    padding: 10px;
+    width: calc(33% - 20px);
+}
+
+.store-card img {
+    max-width: 100%;
+    height: auto;
+}

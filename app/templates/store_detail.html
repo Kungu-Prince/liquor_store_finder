@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}{{ store.name }}{% endblock %}
+
+{% block content %}
+<h1>{{ store.name }}</h1>
+<img src="{{ store.image_url }}" alt="{{ store.name }}">
+<p>{{ store.description }}</p>
+<p>Open: {{ store.opening_time.strftime('%H:%M') }} - {{ store.closing_time.strftime('%H:%M') }}</p>
+<div id="map" style="height: 500px; width: 100%;"></div>
+
+<!-- Include the Google Maps JavaScript API -->
+<script src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_MAPS_API_KEY }}" async defer></script>
+
+<!-- Map initialization script -->
+<script>
+    function initMap() {
+        var storeLocation = { lat: {{ store.latitude }}, lng: {{ store.longitude }} };
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 15,
+            center: storeLocation
+        });
+        var marker = new google.maps.Marker({
+            position: storeLocation,
+            map: map,
+            title: '{{ store.name }}'
+        });
+    }
+    window.onload = initMap;
+</script>
+{% endblock %}

@@ -1,0 +1,31 @@
+# Environment Variables
+.env
+
+# Virtual Environment
+venv/
+
+# Compiled Python Files
+*.pyc
+__pycache__/
+
+# Migration Files
+migrations/
+
+# IDE and Editor Configurations
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+
+# Log Files
+*.log
+
+# Database Files
+*.sqlite3
+*.db
