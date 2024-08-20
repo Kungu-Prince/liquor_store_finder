@@ -1,9 +1,19 @@
 {% extends "base.html" %}
 
-{% block title %}Liquor Stores Nearby{% endblock %}
+{% block title %}Liquor Stores Nearby📍{% endblock %}
 
 {% block content %}
-<h1>Liquor Stores Nearby</h1>
+<div class="background-video-container">
+    <video autoplay muted loop id="background-video">
+        <source src="{{ url_for('static', filename='videos/Beer.mp4') }}" type="video/mp4">
+        <!-- Fallback content for browsers that do not support the video tag -->
+        <div class="fallback-background"></div>
+    </video>
+</div>
+
+<!-- Your content here -->
+<div class="content">
+<h2 class="centered-title marquee-title" style="color: orangered;">🥂Liquor Stores Nearby📍</h2>
 <div id="location-status"></div>
 <div class="store-list">
     {% for store in stores %}
@@ -17,6 +27,56 @@
         </div>
     {% endfor %}
 </div>
+
+<!-- Slideshow -->
+<div class="custom-carousel">
+    <div class="slide active">
+        <div class="image-quote-container">
+            <img src="{{ url_for('static', filename='images/bear.jpg') }}" alt="Slide 1">
+            <p class="quote">"Beer: Because no great story ever started with someone eating a salad.”</p>
+            <img src="{{ url_for('static', filename='images/2.jpg') }}" alt="Slide 1">
+            
+        </div>
+    </div>
+    <div class="slide">
+        <div class="image-quote-container">
+            <img src="{{ url_for('static', filename='images/wine.jpg') }}" alt="Slide 1">
+            <p class="quote">"In wine (or whiskey) there is wisdom, in beer there is freedom, and in cocktails, there is pure joy!"</p>
+            <img src="{{ url_for('static', filename='images/bottles.jpg') }}" alt="Slide 2">
+            
+        </div>
+    </div>
+    <div class="slide">
+        <div class="image-quote-container">
+            <img src="{{ url_for('static', filename='images/ck.jpg') }}" alt="Slide 1">
+            <p class="quote">"Cocktails: Where happiness meets mixology.”</p>
+            <img src="{{ url_for('static', filename='images/image2.jpg') }}" alt="Slide 3">
+            
+        </div>
+    </div>
+    <div class="slide">
+        <div class="image-quote-container">
+            <img src="{{ url_for('static', filename='images/sip.jpg') }}" alt="Slide 1">
+            <p class="quote">“Sip Happens!”</p>
+            <img src="{{ url_for('static', filename='images/image4.jpg') }}" alt="Slide 4">
+           
+        </div>
+    </div>
+    <div class="slide">
+        <div class="image-quote-container">
+            <img src="{{ url_for('static', filename='images/slidel2.jpg') }}" alt="Slide 1">
+             <p class="quote">“Life is too short to drink bad wine (or cheap beer).”</p>
+            <img src="{{ url_for('static', filename='images/1.jpg') }}" alt="Slide 5">
+           
+        </div>
+    </div>
+</div>
+
+<button class="prev" onclick="changeSlide(-1)">❮</button>
+<button class="next" onclick="changeSlide(1)">❯</button>
+
+</div>
+
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -75,5 +135,19 @@
                 });
         }
     });
+    let currentSlide = 0;
+const slides = document.querySelectorAll('.slide');
+
+function changeSlide(direction) {
+    slides[currentSlide].classList.remove('active');
+    currentSlide = (currentSlide + direction + slides.length) % slides.length;
+    slides[currentSlide].classList.add('active');
+}
+
+// Auto slide every 5 seconds
+setInterval(() => {
+    changeSlide(1);
+}, 5000);
+
 </script>
 {% endblock %}

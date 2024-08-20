@@ -30,3 +30,7 @@ def stores():
     store_data = sorted(store_data, key=lambda x: x['distance'])  # Sort by distance
 
     return jsonify({'stores': store_data})
+
+@app.route('/api_stores')
+def api_stores():
+    return "This is a dummy response."  # Placeholder response

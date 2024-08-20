@@ -4,23 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Liquor Store Finder{% endblock %}</title>
+
+    <!-- Favicon and other icons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='images/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='images/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='images/favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ url_for('static', filename='site.webmanifest') }}">
+
+    <!-- CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
-    <!-- Include additional CSS or JS files as needed -->
 </head>
 <body>
+    <!-- Background Video Container -->
+    <div class="background-video-container">
+        <video id="background-video" autoplay muted loop>
+            <source src="{{ url_for('static', filename='videos/Beer.mp4') }}" type="video/mp4">
+            <!-- Fallback background image -->
+            <div class="fallback-background"></div>
+        </video>
+    </div>
+
     <header>
-        <h1>Liquor Store Finder</h1>
-        <nav>
-            <a href="{{ url_for('index') }}">Home</a>
-            <a href="{{ url_for('api_stores') }}">API Stores</a>
-        </nav>
+        <div style="display: flex; align-items: center; justify-content: space-between; margin: 10px;">
+            <img src="{{ url_for('static', filename='images/logo.jpeg') }}" alt="Liquor Store Finder Logo" style="width: 50px; height: 50px;">
+            <h1 style="color: orangered;">🍻LIQUOR STORE FINDER🍻</h1>
+            <nav style="display: flex; justify-content: flex-end;">
+                <a href="{{ url_for('index') }}" style="margin-right: 10px; font-size: larger;">Home</a>
+                <a href="{{ url_for('api_stores') }}" style="font-size: larger;">API Stores</a>
+            </nav>
+        </div>
     </header>
     <main>
         {% block content %}{% endblock %}
     </main>
     <footer>
-        <p>&copy; 2024 Liquor Store Finder</p>
+        <p style="text-align: center; color: #fa9f37;">&copy; 2024 Liquor Store Finder</p>
     </footer>
 </body>
 </html>
