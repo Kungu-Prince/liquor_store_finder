@@ -3,15 +3,7 @@
 {% block title %}Liquor Stores Nearby📍{% endblock %}
 
 {% block content %}
-<div class="background-video-container">
-    <video autoplay muted loop id="background-video">
-        <source src="{{ url_for('static', filename='videos/Beer.mp4') }}" type="video/mp4">
-        <!-- Fallback content for browsers that do not support the video tag -->
-        <div class="fallback-background"></div>
-    </video>
-</div>
 
-<!-- Your content here -->
 <div class="content">
 <h2 class="centered-title marquee-title" style="color: orangered;">🥂Liquor Stores Nearby📍</h2>
 <div id="location-status"></div>

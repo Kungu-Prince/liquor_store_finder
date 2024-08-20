@@ -22,30 +22,36 @@
     <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
 </head>
 <body>
-    <!-- Background Video Container -->
-    <div class="background-video-container">
-        <video id="background-video" autoplay muted loop>
-            <source src="{{ url_for('static', filename='videos/Beer.mp4') }}" type="video/mp4">
-            <!-- Fallback background image -->
-            <div class="fallback-background"></div>
+    <div class="video-background-container">
+        <!-- Optional: Overlay for darkening the video -->
+        <div class="video-overlay"></div>
+        
+        <!-- The WebM video background -->
+        <video class="video-background" autoplay muted loop>
+            <source src="{{ url_for('static', filename='videos/BA.webm') }}" type="video/webm">
+            <source src="{{ url_for('static', filename='videos/BA.mp4') }}" type="video/mp4">
+            Your browser does not support the video tag.
         </video>
-    </div>
+        
+        <!-- Content displayed over the video background -->
+        <div class="content">
 
-    <header>
-        <div style="display: flex; align-items: center; justify-content: space-between; margin: 10px;">
-            <img src="{{ url_for('static', filename='images/logo.jpeg') }}" alt="Liquor Store Finder Logo" style="width: 50px; height: 50px;">
-            <h1 style="color: orangered;">🍻LIQUOR STORE FINDER🍻</h1>
-            <nav style="display: flex; justify-content: flex-end;">
-                <a href="{{ url_for('index') }}" style="margin-right: 10px; font-size: larger;">Home</a>
-                <a href="{{ url_for('api_stores') }}" style="font-size: larger;">API Stores</a>
-            </nav>
-        </div>
-    </header>
-    <main>
-        {% block content %}{% endblock %}
-    </main>
-    <footer>
-        <p style="text-align: center; color: #fa9f37;">&copy; 2024 Liquor Store Finder</p>
-    </footer>
+        <header>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin: 10px;">
+                <img src="{{ url_for('static', filename='images/logo.jpeg') }}" alt="Liquor Store Finder Logo" style="width: 50px; height: 50px;">
+                <h1 style="color: orangered;">🍻LIQUOR STORE FINDER🍻</h1>
+                <nav style="display: flex; justify-content: flex-end;">
+                    <a href="{{ url_for('index') }}" style="margin-right: 10px; font-size: larger;">Home</a>
+                    <a href="{{ url_for('api_stores') }}" style="font-size: larger;">API Stores</a>
+                </nav>
+            </div>
+        </header>
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+        <footer>
+            <p style="text-align: center; color: #fa9f37;">&copy; 2024 Liquor Store Finder</p>
+        </footer>
+    </div>
 </body>
 </html>
